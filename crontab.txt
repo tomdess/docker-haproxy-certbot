@@ -1,0 +1,4 @@
+MAILTO=""
+SHELL=/bin/bash
+
+5 8 * * 6 /cert-renewal-haproxy.sh
