@@ -25,7 +25,7 @@ mount your `haproxy.cfg` at `/etc/haproxy/haproxy.cfg`.
 
     docker run [...] -v <override-conf-file>:/etc/haproxy/haproxy.cfg tomdess/docker-haproxy-letsencrypt
 
-The haproxy configuration provided file comes with the "resolver docker" directive to permit DNS runt-time resolution on backend hosts
+The haproxy configuration provided file comes with the "resolver docker" directive to permit DNS runt-time resolution on backend hosts (see https://github.com/gesellix/docker-haproxy-network)
 
 ### Credits
 
