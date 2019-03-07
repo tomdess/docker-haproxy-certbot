@@ -13,6 +13,8 @@ docker build -t tomdess/docker-haproxy-certbot-auto:latest .
 
 ### Run container:
 
+Example of run command (replace CERTS and EMAIL values and volume paths)
+
 ```
 docker run --name lb -d \
     -e CERTS=my.domain,my.other.domain \
@@ -26,7 +28,7 @@ docker run --name lb -d \
 
 ### Run with docker-compose:
 
-Use the docker-compose.yml file in directory run
+Use the docker-compose.yml file in `run` directory
 
 ```
 docker-compose up -d
