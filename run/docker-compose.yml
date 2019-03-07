@@ -1,0 +1,24 @@
+version: '3'
+services:
+    haproxy:
+        container_name: lb
+        environment:
+            - CERTS=my.domain
+            - EMAIL=my.mail
+        volumes:
+            - '$PWD/data/letsencrypt:/etc/letsencrypt'
+            - '$PWD/data/haproxy.cfg:/etc/haproxy/haproxy.cfg'
+        networks:
+            - lbnet
+        ports:
+            - '80:80'
+            - '443:443'
+        image: 'tomdess/docker-haproxy-letsencrypt.debian9:latest'
+    nginx:
+        container_name: www
+        networks:
+            - lbnet
+        image: nginx
+
+networks:
+  lbnet:
