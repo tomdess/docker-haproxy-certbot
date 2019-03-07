@@ -5,6 +5,14 @@ generated at startup, as well as renewed (if necessary) once a week.
 
 ## Usage
 
+### Build:
+
+```
+docker build -t tomdess/docker-haproxy-certbot-auto:latest .
+```
+
+### Run container:
+
 ```
 docker run --name lb -d \
     -e CERTS=my.domain,my.other.domain \
@@ -13,9 +21,16 @@ docker run --name lb -d \
     -v /srv/haproxycfg/haproxy.cfg:/etc/haproxy/haproxy.cfg \
     --network my_network \
     -p 80:80 -p 443:443 \
-    tomdess/docker-haproxy-certbot
+    tomdess/docker-haproxy-certbot:latest
 ```
 
+### Run with docker-compose:
+
+Use the docker-compose.yml file in directory run
+
+```
+docker-compose up -d
+```
 
 ### Customizing Haproxy
 
