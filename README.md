@@ -28,7 +28,7 @@ docker run --name lb -d \
 
 ### Run with docker-compose:
 
-Use the docker-compose.yml file in `run` directory
+Use the docker-compose.yml file in `run` directory (it creates 2 containers, the haproxy one and a nginx container linked in haproxy configuration for test purposes)
 
 ```
 docker-compose up -d
