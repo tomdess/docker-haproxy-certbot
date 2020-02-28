@@ -13,7 +13,7 @@ services:
         ports:
             - '80:80'
             - '443:443'
-        image: 'tomdess/docker-haproxy-letsencrypt.debian9:latest'
+        image: 'docker-haproxy-certbot:latest'
     nginx:
         container_name: www
         networks:
