@@ -19,7 +19,7 @@ HAPROXY_RELOAD_CMD="supervisorctl signal HUP haproxy"
 WEBROOT="/jail"
 
 # Enable to redirect output to logfile (for silent cron jobs)
-# LOGFILE="/var/log/certrenewal.log"
+#LOGFILE="/var/log/certrenewal.log"
 
 ######################
 ## utility function ##
@@ -64,9 +64,9 @@ renewed_certs=()
 exitcode=0
 while IFS= read -r -d '' cert; do
   if ! openssl x509 -noout -checkend $((4*7*86400)) -in "${cert}"; then
-    subject="$(openssl x509 -noout -subject -in "${cert}" | grep -o -E 'CN=[^ ,]+' | tr -d 'CN=')"
+    subject="$(openssl x509 -noout -subject -in "${cert}" | grep -o -E 'CN = [^ ,]+' | tr -d 'CN = ')"
     subjectaltnames="$(openssl x509 -noout -text -in "${cert}" | sed -n '/X509v3 Subject Alternative Name/{n;p}' | sed 's/\s//g' | tr -d 'DNS:' | sed 's/,/ /g')"
-    domains="-d ${subject}"
+    domains="${subject}"
     for name in ${subjectaltnames}; do
       if [ "${name}" != "${subject}" ]; then
         domains="${domains} -d ${name}"
