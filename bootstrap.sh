@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-/certs.sh && supervisord -n
+/certs.sh && supervisord -c /etc/supervisord.conf -n
