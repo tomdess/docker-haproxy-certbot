@@ -37,11 +37,11 @@ COPY haproxy-acme-validation-plugin/cert-renewal-haproxy.sh /
 # install cron job and remove useless ones
 COPY crontab.txt /var/crontab.txt
 RUN crontab /var/crontab.txt && chmod 600 /etc/crontab \
-    && rm /etc/cron.d/certbot \
-    && rm /etc/cron.hourly/* \
-    && rm /etc/cron.daily/* \
-    && rm /etc/cron.weekly/* \
-    && rm /etc/cron.monthly/*
+    && rm -f /etc/cron.d/certbot \
+    && rm -f /etc/cron.hourly/* \
+    && rm -f /etc/cron.daily/* \
+    && rm -f /etc/cron.weekly/* \
+    && rm -f /etc/cron.monthly/*
 
 COPY supervisord.conf /etc/supervisord.conf
 COPY certs.sh /
