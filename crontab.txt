@@ -1,4 +1,4 @@
 MAILTO=""
 SHELL=/bin/bash
 
-5 8 * * 3 /cert-renewal-haproxy.sh
+5 8 * * 5 /cert-renewal-haproxy.sh > /proc/1/fd/1 2>&1
