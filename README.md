@@ -86,4 +86,5 @@ Once a week a cron job check for expiring certificates with certbot agent and re
 ### Credits
 
 Most of ideas taken from https://github.com/BradJonesLLC/docker-haproxy-letsencrypt
+
 HAProxy ACME lua plugin: https://github.com/janeczku/haproxy-acme-validation-plugin
