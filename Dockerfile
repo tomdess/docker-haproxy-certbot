@@ -12,9 +12,6 @@ RUN apt-get update && apt-get install --no-install-recommends -yqq \
     ca-certificates \
     curl \
     procps \
-    iproute \
-    telnet \
-    inetutils-ping \
     && apt-get install --no-install-recommends -yqq certbot -t stretch-backports \
     && apt-get install --no-install-recommends -yqq supervisor \
     && apt-get clean autoclean && apt-get autoremove -y \
