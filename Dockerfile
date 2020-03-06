@@ -29,10 +29,16 @@ RUN apt-get update \
 
 # See https://github.com/janeczku/haproxy-acme-validation-plugin
 COPY haproxy-acme-validation-plugin/acme-http01-webroot.lua /etc/haproxy
-COPY haproxy-acme-validation-plugin/cert-renewal-haproxy.sh /
 
+# supervisord configuration
+COPY conf/supervisord.conf /etc/supervisord.conf
+# haproxy configuration
+COPY conf/haproxy.cfg /etc/haproxy/haproxy.cfg
+# renewal script
+COPY scripts/cert-renewal-haproxy.sh /
+# renewal cron job
+COPY conf/crontab.txt /var/crontab.txt
 # install cron job and remove useless ones
-COPY crontab.txt /var/crontab.txt
 RUN crontab /var/crontab.txt && chmod 600 /etc/crontab \
     && rm -f /etc/cron.d/certbot \
     && rm -f /etc/cron.hourly/* \
@@ -40,7 +46,7 @@ RUN crontab /var/crontab.txt && chmod 600 /etc/crontab \
     && rm -f /etc/cron.weekly/* \
     && rm -f /etc/cron.monthly/*
 
-COPY supervisord.conf /etc/supervisord.conf
+# cert creation script & bootstrap
 COPY certs.sh /
 COPY bootstrap.sh /
 
@@ -49,7 +55,5 @@ RUN mkdir /jail
 EXPOSE 80 443
 
 VOLUME /etc/letsencrypt
-
-COPY haproxy.cfg /etc/haproxy/haproxy.cfg
 
 ENTRYPOINT ["/bootstrap.sh"]
