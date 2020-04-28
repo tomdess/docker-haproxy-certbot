@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 # automation of certificate renewal for let's encrypt and haproxy
 # - checks all certificates under /etc/letsencrypt/live and renews
@@ -8,9 +10,9 @@
 # usage:
 # sudo ./cert-renewal-haproxy.sh
 
-###################
-## configuration ##
-###################
+################################################################################
+### global settings
+################################################################################
 
 LE_CLIENT="certbot"
 
@@ -21,12 +23,12 @@ WEBROOT="/jail"
 # Enable to redirect output to logfile (for silent cron jobs)
 #LOGFILE="/var/log/certrenewal.log"
 
-######################
-## utility function ##
-######################
+################################################################################
+### FUNCTIONS
+################################################################################
 
 function issueCert {
-  $LE_CLIENT certonly --text --webroot --webroot-path ${WEBROOT} --renew-by-default --agree-tos --email ${EMAIL} $1 &>/dev/null
+  $LE_CLIENT certonly --text --webroot --webroot-path ${WEBROOT} --renew-by-default --agree-tos --email ${EMAIL} ${1} &>/dev/null
   return $?
 }
 
@@ -47,9 +49,9 @@ function logger_info {
   fi
 }
 
-##################
-## main routine ##
-##################
+################################################################################
+### MAIN
+################################################################################
 
 le_cert_root="/etc/letsencrypt/live"
 
