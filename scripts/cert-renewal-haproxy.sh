@@ -21,7 +21,9 @@ HAPROXY_RELOAD_CMD="supervisorctl signal HUP haproxy"
 WEBROOT="/jail"
 
 # Enable to redirect output to logfile (for silent cron jobs)
+# Leave it empty to log in STDOUT/ERR (docker log)
 #LOGFILE="/var/log/certrenewal.log"
+LOGFILE=""
 
 ################################################################################
 ### FUNCTIONS
