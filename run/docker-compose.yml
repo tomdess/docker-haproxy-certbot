@@ -19,6 +19,17 @@ services:
         networks:
             - lbnet
         image: nginx
+    rsyslog:
+        container_name: rsyslog
+        environment:
+            - TZ=UTC
+        volumes:
+            - '$PWD/data/rsyslog/config:/config'
+        networks:
+            - lbnet
+        ports:
+            - '514:514'
+        image: 'rsyslog/syslog_appliance_alpine'
 
 networks:
   lbnet:
