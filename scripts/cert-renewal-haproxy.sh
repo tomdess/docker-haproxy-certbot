@@ -17,6 +17,7 @@ set -euo pipefail
 LE_CLIENT="certbot"
 
 HAPROXY_RELOAD_CMD="supervisorctl signal HUP haproxy"
+HAPROXY_SOFTSTOP_CMD="supervisorctl signal USR1 haproxy"
 
 WEBROOT="/jail"
 
@@ -30,7 +31,7 @@ LOGFILE=""
 ################################################################################
 
 function issueCert {
-  $LE_CLIENT certonly --text --webroot --webroot-path ${WEBROOT} --renew-by-default --agree-tos --email ${EMAIL} ${1} &>/dev/null
+  $LE_CLIENT certonly --text --webroot --webroot-path ${WEBROOT} --renew-by-default --agree-tos ${1} &>/dev/null
   return $?
 }
 
@@ -99,11 +100,12 @@ for domain in ${renewed_certs[@]}; do
   fi
 done
 
-# soft-restart haproxy
+# soft-stop (and implicit restart) of haproxy
+# (reload command does not reload certs)
 if [ "${#renewed_certs[@]}" -gt 0 ]; then
-  $HAPROXY_RELOAD_CMD
+  $HAPROXY_SOFTSTOP_CMD
   if [ $? -ne 0 ]; then
-    logger_error "failed to reload haproxy!"
+    logger_error "failed to stop haproxy!"
     exit 1
   fi
 fi
