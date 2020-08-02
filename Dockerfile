@@ -27,9 +27,6 @@ RUN apt-get update \
     && apt-get clean autoclean && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-# See https://github.com/janeczku/haproxy-acme-validation-plugin
-COPY haproxy-acme-validation-plugin/acme-http01-webroot.lua /etc/haproxy
-
 # supervisord configuration
 COPY conf/supervisord.conf /etc/supervisord.conf
 # haproxy configuration
