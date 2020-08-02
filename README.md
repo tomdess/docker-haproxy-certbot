@@ -37,7 +37,7 @@ docker run --name lb -d \
 Use the docker-compose.yml file in `run` directory (it creates 2 containers, the haproxy one and a nginx container linked in haproxy configuration for test purposes)
 
 ```
-# docker-compose.yml file contenct:
+# docker-compose.yml file content:
 
 version: '3'
 services:
