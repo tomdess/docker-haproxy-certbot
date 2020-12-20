@@ -28,6 +28,7 @@ RUN apt-get update \
 COPY conf/supervisord.conf /etc/supervisord.conf
 # haproxy configuration
 COPY conf/haproxy.cfg /etc/haproxy/haproxy.cfg
+COPY haproxy-acme-validation-plugin/acme-http01-webroot.lua /etc/haproxy
 # renewal script
 COPY scripts/cert-renewal-haproxy.sh /
 # renewal cron job
