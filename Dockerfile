@@ -51,4 +51,6 @@ EXPOSE 80 443
 
 VOLUME /etc/letsencrypt
 
+ENV STAGING=false
+
 ENTRYPOINT ["/bootstrap.sh"]

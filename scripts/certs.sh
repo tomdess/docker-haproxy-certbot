@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 
 if [ -n "$CERTS" ]; then
-    certbot certonly --no-self-upgrade -n --text --standalone \
+    if [ "$STAGING" = true ]; then
+        certbot certonly --no-self-upgrade -n --text --standalone \
+        --preferred-challenges http-01 \
+	--staging \
+        -d "$CERTS" --keep --expand --agree-tos --email "$EMAIL" \
+        || exit 2
+    else
+    	certbot certonly --no-self-upgrade -n --text --standalone \
         --preferred-challenges http-01 \
         -d "$CERTS" --keep --expand --agree-tos --email "$EMAIL" \
         || exit 1
+    fi
 
     mkdir -p /etc/haproxy/certs
     for site in `ls -1 /etc/letsencrypt/live | grep -v ^README$`; do

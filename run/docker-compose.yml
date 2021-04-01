@@ -5,6 +5,7 @@ services:
         environment:
             - CERTS=my.domain
             - EMAIL=my.mail
+            - STAGING=false
         volumes:
             - '$PWD/data/letsencrypt:/etc/letsencrypt'
             - '$PWD/data/haproxy.cfg:/etc/haproxy/haproxy.cfg'

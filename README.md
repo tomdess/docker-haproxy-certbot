@@ -25,6 +25,7 @@ Example of run command (replace CERTS,EMAIL values and volume paths with yours)
 docker run --name lb -d \
     -e CERTS=my.domain,my.other.domain \
     -e EMAIL=my.email@my.domain \
+    -e STAGING=false \
     -v /srv/letsencrypt:/etc/letsencrypt \
     -v /srv/haproxycfg/haproxy.cfg:/etc/haproxy/haproxy.cfg \
     --network my_network \
@@ -46,6 +47,7 @@ services:
         environment:
             - CERTS=my.domain
             - EMAIL=my.mail
+            - STAGING=false
         volumes:
             - '$PWD/data/letsencrypt:/etc/letsencrypt'
             - '$PWD/data/haproxy.cfg:/etc/haproxy/haproxy.cfg'
