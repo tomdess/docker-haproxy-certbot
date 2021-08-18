@@ -1,8 +1,9 @@
 docker run --name lb -d \
-    -e CERTS=my.domain \
-    -e EMAIL=my.mail \
-    -v $PWD/data/letsencrypt:/etc/letsencrypt \
-    -v $PWD/data/haproxy.cfg:/etc/haproxy/haproxy.cfg \
-    --network web_network \
+    -e CERTS=my.domain,my.other.domain \
+    -e EMAIL=my.email@my.domain \
+    -e STAGING=false \
+    -v /srv/letsencrypt:/etc/letsencrypt \
+    -v /srv/haproxycfg/haproxy.cfg:/etc/haproxy/haproxy.cfg \
+    --network my_network \
     -p 80:80 -p 443:443 \
-    tomdess/haproxy-certbot:latest
+    ghcr.io/tomdess/docker-haproxy-certbot:master

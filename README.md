@@ -8,7 +8,7 @@ at startup, as well as renewed (if necessary) once a week with an internal cron 
 ### Pull from Docker Hub:
 
 ```
-docker pull tomdess/haproxy-certbot
+docker pull ghcr.io/tomdess/docker-haproxy-certbot:master
 ```
 
 ### Build from Dockerfile:
@@ -30,7 +30,7 @@ docker run --name lb -d \
     -v /srv/haproxycfg/haproxy.cfg:/etc/haproxy/haproxy.cfg \
     --network my_network \
     -p 80:80 -p 443:443 \
-    tomdess/haproxy-certbot:latest
+    ghcr.io/tomdess/docker-haproxy-certbot:master
 ```
 
 ### Run with docker-compose:
@@ -56,7 +56,7 @@ services:
         ports:
             - '80:80'
             - '443:443'
-        image: 'tomdess/haproxy-certbot:latest'
+        image: 'ghcr.io/tomdess/docker-haproxy-certbot:master'
     nginx:
         container_name: www
         networks:
@@ -77,7 +77,7 @@ You will almost certainly want to create an image `FROM` this image or
 mount your `haproxy.cfg` at `/etc/haproxy/haproxy.cfg`.
 
 
-    docker run [...] -v <override-conf-file>:/etc/haproxy/haproxy.cfg tomdess/haproxy-certbot:latest
+    docker run [...] -v <override-conf-file>:/etc/haproxy/haproxy.cfg ghcr.io/tomdess/docker-haproxy-certbot:master
 
 The haproxy configuration provided file comes with the "resolver docker" directive to permit DNS runt-time resolution on backend hosts (see https://github.com/gesellix/docker-haproxy-network)
 

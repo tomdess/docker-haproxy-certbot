@@ -14,7 +14,7 @@ services:
         ports:
             - '80:80'
             - '443:443'
-        image: 'tomdess/haproxy-certbot:latest'
+        image: 'ghcr.io/tomdess/docker-haproxy-certbot:master'
     nginx:
         container_name: www
         networks:
