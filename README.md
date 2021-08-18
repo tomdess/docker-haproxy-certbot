@@ -5,7 +5,7 @@ at startup, as well as renewed (if necessary) once a week with an internal cron 
 
 ## Usage
 
-### Pull from Docker Hub:
+### Pull from Github Packages ghcr.io:
 
 ```
 docker pull ghcr.io/tomdess/docker-haproxy-certbot:master
