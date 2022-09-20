@@ -3,7 +3,8 @@ services:
     haproxy:
         container_name: lb
         environment:
-            - CERTS=my.domain
+            - CERT1=yoursite.com, www.yoursite.com
+            - CERT2=yoursite.com, www.yoursite.com
             - EMAIL=my.mail
             - STAGING=false
         volumes:

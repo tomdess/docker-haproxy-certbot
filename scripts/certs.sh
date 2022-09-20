@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 
-if [ -n "$CERTS" ]; then
+if [ -n "$CERT1" ]; then
     if [ "$STAGING" = true ]; then
-        certbot certonly --no-self-upgrade -n --text --standalone \
-        --preferred-challenges http-01 \
-	--staging \
-        -d "$CERTS" --keep --expand --agree-tos --email "$EMAIL" \
-        || exit 2
+        for certname in ${!CERT*}; do
+            certbot certonly --no-self-upgrade -n --text --standalone \
+            --preferred-challenges http-01 \
+            --staging \
+            -d "${!certname}" --keep --expand --agree-tos --email "$EMAIL" \
+            || exit 2
+        done
     else
-    	certbot certonly --no-self-upgrade -n --text --standalone \
-        --preferred-challenges http-01 \
-        -d "$CERTS" --keep --expand --agree-tos --email "$EMAIL" \
-        || exit 1
+        for certname in ${!CERT*}; do
+          	certbot certonly --no-self-upgrade -n --text --standalone \
+            --preferred-challenges http-01 \
+            -d "${!certname}" --keep --expand --agree-tos --email "$EMAIL" \
+            || exit 1
+        done
     fi
 
     mkdir -p /etc/haproxy/certs
