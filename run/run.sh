@@ -1,5 +1,5 @@
 docker run --name lb -d \
-    -e CERTS=my.domain,my.other.domain \
+    -e CERT1=my-common-name.domain, my-alternate-name.domain \
     -e EMAIL=my.email@my.domain \
     -e STAGING=false \
     -v /srv/letsencrypt:/etc/letsencrypt \
