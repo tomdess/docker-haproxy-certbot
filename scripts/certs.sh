@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -n "$CERT1" ]; then
+if [ -n "$CERT1" ] || [ -n "$CERT" ]; then
     if [ "$STAGING" = true ]; then
         for certname in ${!CERT*}; do
             certbot certonly --no-self-upgrade -n --text --standalone \
