@@ -1,5 +1,5 @@
-# start from debian 10 slim version
-FROM debian:buster-slim
+# start from debian 12 slim version
+FROM debian:bookworm-slim
 
 # install certbot, supervisor and utilities
 RUN apt-get update && apt-get install --no-install-recommends -yqq \
@@ -20,10 +20,10 @@ RUN apt-get update && apt-get install --no-install-recommends -yqq \
 RUN curl https://haproxy.debian.net/bernat.debian.org.gpg \
        | gpg --dearmor > /usr/share/keyrings/haproxy.debian.net.gpg \
     && echo deb "[signed-by=/usr/share/keyrings/haproxy.debian.net.gpg]" \
-       http://haproxy.debian.net buster-backports-2.4 main \
+       http://haproxy.debian.net bookworm-backports-2.8 main \
        > /etc/apt/sources.list.d/haproxy.list \
     && apt-get update \
-    && apt-get install -yqq haproxy=2.4.\* \
+    && apt-get install -yqq haproxy=2.8.\* \
     && apt-get clean autoclean && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
