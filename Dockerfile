@@ -23,7 +23,7 @@ RUN curl https://haproxy.debian.net/bernat.debian.org.gpg \
        http://haproxy.debian.net bookworm-backports-2.8 main \
        > /etc/apt/sources.list.d/haproxy.list \
     && apt-get update \
-    && apt-get install -yqq haproxy=2.8.\* \
+    && apt-get install -yqq haproxy \
     && apt-get clean autoclean && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
