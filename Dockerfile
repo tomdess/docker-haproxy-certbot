@@ -1,5 +1,5 @@
-# start from debian 12 slim version
-FROM debian:bookworm-slim
+# start from debian 10 slim version
+FROM debian:bullseye-slim
 
 # install certbot, supervisor and utilities
 RUN apt-get update && apt-get install --no-install-recommends -yqq \
@@ -18,12 +18,12 @@ RUN apt-get update && apt-get install --no-install-recommends -yqq \
 # install haproxy from official debian repos (https://haproxy.debian.net/)
 
 RUN curl https://haproxy.debian.net/bernat.debian.org.gpg \
-       | gpg --dearmor > /usr/share/keyrings/haproxy.debian.net.gpg \
+    | gpg --dearmor > /usr/share/keyrings/haproxy.debian.net.gpg \
     && echo deb "[signed-by=/usr/share/keyrings/haproxy.debian.net.gpg]" \
-       http://haproxy.debian.net bookworm-backports-2.8 main \
-       > /etc/apt/sources.list.d/haproxy.list \
+    http://haproxy.debian.net bullseye-backports-2.8 main \
+    > /etc/apt/sources.list.d/haproxy.list \
     && apt-get update \
-    && apt-get install -yqq haproxy \
+    && apt-get install -yqq haproxy=2.8.\* \
     && apt-get clean autoclean && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 

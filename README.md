@@ -35,19 +35,21 @@ docker run --name lb -d \
 
 ### Run with docker-compose:
 
-Use the docker-compose.yml file in `run` directory (it creates 2 containers, the haproxy one and a nginx container linked in haproxy configuration for test purposes)
+Use the docker-compose.yml file in `run` directory (it creates 3 containers, the haproxy one, a nginx container linked in haproxy configuration for test purposes and a sidecar rsyslog container)
 
 ```
-# docker-compose.yml file content:
+$ cd run
+$ mkdir data
+$ cp ../conf/haproxy.cfg data/
 
+# modify CERT1 variables and EMAIL with your names/values:
 version: '3'
 services:
     haproxy:
         container_name: lb
         environment:
-            - CERT1=mysite.com, www.mysite.com
-            - CERT2=yoursite.com, www.yoursite.com
-            - EMAIL=my.mail
+            - CERT1=www.your-mysite.com
+            - EMAIL=your-email
             - STAGING=false
         volumes:
             - '$PWD/data/letsencrypt:/etc/letsencrypt'
@@ -63,11 +65,22 @@ services:
         networks:
             - lbnet
         image: nginx
+    rsyslog:
+        container_name: rsyslog
+        environment:
+            - TZ=UTC
+        volumes:
+            - '$PWD/data/rsyslog/config:/config'
+        networks:
+            - lbnet
+        ports:
+            - '514:514'
+        image: 'rsyslog/syslog_appliance_alpine'
 
 networks:
   lbnet:
-  
 
+# start containers (creates the certificate)
 $ docker-compose up -d
 
 ```
