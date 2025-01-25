@@ -1,6 +1,8 @@
 # start from debian 10 slim version
 FROM debian:bullseye-slim
 
+ARG HAPROXYREL="3.0"
+
 # install certbot, supervisor and utilities
 RUN apt-get update && apt-get install --no-install-recommends -yqq \
     gnupg \
@@ -20,10 +22,10 @@ RUN apt-get update && apt-get install --no-install-recommends -yqq \
 RUN curl https://haproxy.debian.net/bernat.debian.org.gpg \
     | gpg --dearmor > /usr/share/keyrings/haproxy.debian.net.gpg \
     && echo deb "[signed-by=/usr/share/keyrings/haproxy.debian.net.gpg]" \
-    http://haproxy.debian.net bullseye-backports-2.8 main \
+    http://haproxy.debian.net bullseye-backports-${HAPROXYREL} main \
     > /etc/apt/sources.list.d/haproxy.list \
     && apt-get update \
-    && apt-get install -yqq haproxy=2.8.\* \
+    && apt-get install -yqq haproxy=${HAPROXYREL}.\* \
     && apt-get clean autoclean && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
