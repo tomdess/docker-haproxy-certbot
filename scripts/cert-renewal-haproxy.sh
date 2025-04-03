@@ -56,6 +56,9 @@ function logger_info {
 ### MAIN
 ################################################################################
 
+# Before renewal, ensure any leftover validation files are removed
+rm -rf ${WEBROOT}/.well-known/acme-challenge/*
+
 le_cert_root="/etc/letsencrypt/live"
 
 if [ ! -d ${le_cert_root} ]; then
